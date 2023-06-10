@@ -58,7 +58,7 @@ const AccountContent: React.FC<AccountContentProps> = ({
             </div>
             <div className="flex flex-col gap-y-2 mt-3 px-3">
                 {songs.map((item) => (
-                    <div className="flex flex-row items-center gap-x-4 pr-2">
+                    <div className="flex flex-row items-center gap-x-4 pr-2" key={item.id}>
                         <MediaItem
                             onClick={(id: string) => onPlay(id)}
                             key={item.id}
