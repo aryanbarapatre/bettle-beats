@@ -64,7 +64,7 @@ const AccountContent: React.FC<AccountContentProps> = ({
                             key={item.id}
                             data={item}
                         />
-                        <LikeButton songId={item.id}/>
+                        <LikeButton key={item.id} songId={item.id}/>
                     </div>
                 ))}
             </div>
