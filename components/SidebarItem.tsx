@@ -23,4 +23,4 @@ const SidebarItem: React.FC<SidebarItemProps> = ({
   )
 }
 
-export default SidebarItem
+export default SidebarItem;

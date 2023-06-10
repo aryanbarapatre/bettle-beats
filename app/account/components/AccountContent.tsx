@@ -7,14 +7,15 @@ import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
 import useUploadModal from "@/hooks/useUploadModal";
 import { Song } from "@/types";
-import MediaItem from "./MediaItem";
 import useOnPlay from "@/hooks/useOnPlay";
+import MediaItem from "@/components/MediaItem";
+import LikeButton from "@/components/LikeButton";
 
-interface LibraryProps {
+interface AccountContentProps {
     songs: Song[];
 }
 
-const Library: React.FC<LibraryProps> = ({
+const AccountContent: React.FC<AccountContentProps> = ({
     songs
 }) => {
 
@@ -52,20 +53,23 @@ const Library: React.FC<LibraryProps> = ({
                 <AiOutlinePlus
                     onClick={onClick}
                     size={20}
-                    className="text-neutral-400 cursor-pointer hover:text-white transition"
+                    className="text-neutral-400 cursor-pointer hover:text-white transition mr-1"
                 />
             </div>
             <div className="flex flex-col gap-y-2 mt-3 px-3">
                 {songs.map((item) => (
-                    <MediaItem
-                        onClick={(id: string) => onPlay(id)}
-                        key={item.id}
-                        data={item}
-                    />
+                    <div className="flex flex-row items-center gap-x-4 pr-2">
+                        <MediaItem
+                            onClick={(id: string) => onPlay(id)}
+                            key={item.id}
+                            data={item}
+                        />
+                        <LikeButton songId={item.id}/>
+                    </div>
                 ))}
             </div>
         </div>
     )
 }
 
-export default Library;
+export default AccountContent;

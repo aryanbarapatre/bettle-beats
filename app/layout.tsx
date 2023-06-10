@@ -1,31 +1,41 @@
 import './globals.css';
-import { Figtree } from 'next/font/google';
+import { Figtree, Play } from 'next/font/google';
 import Sidebar from '@/components/Sidebar';
 import SupabaseProvider from '@/providers/SupabaseProvider';
 import UserProvider from '@/providers/UserProvider';
 import ModalProvider from '@/providers/ModalProvider';
+import ToasterProvider from '@/providers/ToasterProvider';
+import getSongsByUSerId from '@/actions/getSongsByUserId';
+import Player from '@/components/Player';
 
 const font = Figtree({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Bettle Beats',
   description: 'Listen to your favourite beats',
-}
+};
 
-export default function RootLayout({
+export const revalidate = 0;
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+
+  const userSongs = await getSongsByUSerId();
+
   return (
     <html lang="en">
       <body className={font.className}>
+        <ToasterProvider />
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-            <Sidebar>
+            <Sidebar songs={userSongs}>
               {children}
             </Sidebar>
+            <Player />
           </UserProvider>
         </SupabaseProvider>
       </body>
